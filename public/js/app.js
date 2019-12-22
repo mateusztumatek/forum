@@ -1978,14 +1978,12 @@ __webpack_require__.r(__webpack_exports__);
       errors: []
     };
   },
-  mounted: function mounted() {
-    console.log('LOGIN');
-  },
+  mounted: function mounted() {},
   methods: {
     register: function register() {
       var _this = this;
 
-      login(this.user).then(function (res) {
+      Object(_api_auth__WEBPACK_IMPORTED_MODULE_0__["register"])(this.user).then(function (res) {
         _this.$emit('logged', res);
       })["catch"](function (e) {
         _this.errors = e.response.data.errors;
@@ -90202,8 +90200,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\forum\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\forum\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\forum\forum\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\forum\forum\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

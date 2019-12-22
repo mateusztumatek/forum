@@ -20,57 +20,67 @@
 </head>
 <body>
     <v-app id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <v-app-bar
+            v-cloak
+            app
+            color="#fcb69f"
+            dark
+            src="https://picsum.photos/1920/1080?random"
+            scroll-target="#scrolling-techniques"
+        >
+            <template v-slot:img="{ props }">
+                <v-img
+                    v-bind="props"
+                    gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+                ></v-img>
+            </template>
+            <div class="container v-toolbar__content">
+                <v-app-bar-nav-icon small></v-app-bar-nav-icon>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                <v-toolbar-title small>Title</v-toolbar-title>
 
-                    </ul>
+                <v-spacer></v-spacer>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                            <li class="nav-item" v-if="!user">
-                                <a class="nav-link" @click="login()">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item" v-if="!user">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                            <li class="nav-item dropdown" v-if="user">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-cloak>
-                                    @{{user.email}} <span class="caret"></span>
-                                </a>
+                <v-btn icon>
+                    <v-icon>mdi-magnify</v-icon>
+                </v-btn>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                <v-btn icon>
+                    <v-icon>mdi-heart</v-icon>
+                </v-btn>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                    </ul>
-                </div>
+                <v-menu
+                    bottom
+                    origin="center center"
+                    transition="scale-transition"
+                >
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            icon
+                            v-on="on"
+                        >
+                            <v-icon>mdi-account</v-icon>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item dense @click="login()">
+                            <v-list-item-title>{{__('my.Zaloguj się')}}</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item dense @click="register()">
+                            <v-list-item-title>{{__('my.Zarejestruj się')}}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        </v-app-bar>
+        <v-content>
+            <div class="container">
+                <main class="py-4">
+                    @yield('content')
+                </main>
+            </div>
+        </v-content>
     </v-app>
 </body>
 <script>

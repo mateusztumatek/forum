@@ -40,11 +40,10 @@
             }
         },
         mounted() {
-            console.log('LOGIN');
         },
         methods:{
             register(){
-                login(this.user).then(res => {
+                register(this.user).then(res => {
                     this.$emit('logged', res);
                 }).catch(e => {
                     this.errors = e.response.data.errors;
