@@ -35,7 +35,11 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        parent::report($exception);
+        if($exception instanceof \Illuminate\Validation\UnauthorizedException){
+
+        }else{
+            parent::report($exception);
+        }
     }
 
     /**
@@ -47,9 +51,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        /*if($exception instanceof \Illuminate\Validation\UnauthorizedException){
+        if($exception instanceof \Illuminate\Validation\UnauthorizedException){
             return  redirect(url('/'))->withErrors('Brak dostępu do tej części systemu.');
-        }*/
+        }
         return parent::render($request, $exception);
     }
 }

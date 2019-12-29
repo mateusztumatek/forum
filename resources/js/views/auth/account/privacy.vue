@@ -4,8 +4,22 @@
         <v-switch v-model="edit_user.settings.subscription" true-value="1" false-value="0" label="Wysyłać nowości drogą mailową?"></v-switch>
         <v-text-field hint="Jeśli nie chcesz zmieniać adresu email wystarczy że zostawisz te pole takie same." :error-messages="errors['new_email']" label="Nowy adres email" outlined name="new_email" v-model="edit_user.new_email"></v-text-field>
         <v-text-field label="Nowe hasło" v-model="edit_user.new_password" outlined name="new_password" :error-messages="errors['new_password']" type="password"></v-text-field>
-        <v-text-field label="Powtórz nowe hasło" outlined v-model="edit_user.confirmation_new_password" name="confirm_new_password" type="password"></v-text-field>
+        <v-text-field label="Powtórz nowe hasło" outlined v-model="edit_user.new_password_confirmation" name="confirm_new_password" type="password"></v-text-field>
         <v-btn @click="save()" class="mt-4" tile color="primary">Zapisz</v-btn>
+        <v-dialog :value="(confirm && confirm.id)? true : false" persistent max-width="600px">
+            <v-card v-if="confirm">
+                <v-card-title>
+                    <span class="headline">Wpisz kod</span>
+                </v-card-title>
+                <v-card-text>
+                  <p>Wpisz kod wysłany na twój adres email: {{confirm.email}}</p>
+                    <v-text-field v-model="code" outlined></v-text-field>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn :loading="loading" class="w-100" color="primary" dark text @click="update()">Zatwierdź</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 <script>
@@ -16,7 +30,10 @@
         data(){
             return{
                 edit_user:null,
-                errors:[]
+                errors:[],
+                confirm: null,
+                code: null,
+                loading:false,
             }
         },
         mounted(){
@@ -29,12 +46,23 @@
         },
         methods:{
             save(){
+                this.loading = true;
                 updateUser(user.id, this.edit_user).then(response => {
-/*
-                    window.location.reload();
-*/
+                    this.confirm = response;
+                    this.loading = false;
                 }).catch(e => {
                     if(e.response.data.errors) this.errors = e.response.data.errors;
+                    this.loading = false;
+                });
+            },
+            update(){
+                this.loading = true;
+                updateUser(user.id, {...this.edit_user, ...this.code}).then(response => {
+                    this.confirm = null;
+                    this.loading = false;
+                }).catch(e => {
+                    if(e.response.data.errors) this.errors = e.response.data.errors;
+                    this.loading = false;
                 });
             }
         }

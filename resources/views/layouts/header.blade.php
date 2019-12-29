@@ -54,6 +54,11 @@
                     @CSRF
                 </form>
                 <v-list>
+                    <v-list-item dense href="{{route('account.index', ['id' => Auth::id()])}}">
+                        <v-list-item-title>
+                            {{__('my.Zobacz konto')}}
+                        </v-list-item-title>
+                    </v-list-item>
                     <v-list-item dense @click="$refs.logoutForm.submit()">
                         <v-list-item-title>
                             {{__('my.Wyloguj się')}}

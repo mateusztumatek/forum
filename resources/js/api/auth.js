@@ -20,4 +20,3 @@ export function updateUser(user_id, data) {
         method: 'post'
     })
 }
-
