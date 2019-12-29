@@ -16,5 +16,20 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
-
+Route::post('verification_email', function (){
+    if(\Illuminate\Support\Facades\Auth::check()){
+        \Illuminate\Support\Facades\Auth::user()->sendEmailVerificationNotification();
+    }
+    return back();
+})->name('send_verification_link');
+Route::get('konto/{id}/{tab?}', 'UserController@show')->name('account.index');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::post('/user/{id}/update', 'UserController@update')->name('account.update');
+});
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

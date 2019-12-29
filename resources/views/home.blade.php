@@ -16,6 +16,9 @@
                     <div v-if="user">
                         Użytkownik:
                         @{{user}}
+                        <v-btn @click="$root.$eventBus.$emit('addNotification', {
+                            'text': 'SIEMANKO'
+                        })">Dodaj notification</v-btn>
                     </div>
                 </div>
             </div>

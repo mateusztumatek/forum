@@ -60,6 +60,16 @@ class LoginController extends Controller
 
         return $this->sendFailedLoginResponse($request);
     }
+    public function username()
+    {
+        $login = request()->input('email');
+
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'login';
+        request()->merge([$field => $login]);
+
+        return $field;
+    }
+
     /**
      * Create a new controller instance.
      *

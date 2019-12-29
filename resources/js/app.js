@@ -6,12 +6,12 @@
 
 
 require('./bootstrap');
-
+require('./utilis/default');
 window.Vue = require('vue');
 import vuetify from './plugins/vuetify';
 import prototypes from './plugins/auth';
 import { i18n } from "./plugins/i18n";
-
+require('./dependencies');
 Vue.use(prototypes);
 /**
  * The following block of code may be used to automatically register your
@@ -26,6 +26,7 @@ Vue.use(prototypes);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+Vue.prototype.$eventBus = new Vue();
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -39,7 +40,7 @@ const app = new Vue({
     data(){
         return{
             user:null,
-
+            birth_date: null,
             base_url:'',
         }
     },
@@ -50,6 +51,10 @@ const app = new Vue({
         if(register) this.register();
     },
     methods:{
+        updateInput(field, data){
+            console.log($('input[name="'+field+'"]'));
+            $('input[name="'+field+'"]').val(data);
+        },
         login(){
             this.$login().then(user => {
                 this.user = user.user;

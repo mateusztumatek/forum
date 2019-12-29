@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Cassandra\Exception\UnauthorizedException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -46,6 +47,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        /*if($exception instanceof \Illuminate\Validation\UnauthorizedException){
+            return  redirect(url('/'))->withErrors('Brak dostępu do tej części systemu.');
+        }*/
         return parent::render($request, $exception);
     }
 }

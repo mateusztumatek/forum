@@ -13,4 +13,11 @@ export function register(data) {
         data: data,
     })
 }
+export function updateUser(user_id, data) {
+    return Request({
+        url: base_url+'/user/'+user_id+'/update',
+        data: data,
+        method: 'post'
+    })
+}
 

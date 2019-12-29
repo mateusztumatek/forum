@@ -18,7 +18,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" raised @click="login()">Zaloguj</v-btn>
+                    <v-btn color="primary" :loading="loading" raised @click="login()">Zaloguj</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -33,6 +33,7 @@
             return{
                 dialog: true,
                 user: {},
+                loading:false,
                 errors:[],
             }
         },
@@ -41,9 +42,12 @@
         },
         methods:{
             login(){
+                this.loading = true;
                 login(this.user).then(res => {
+                    this.loading = false;
                     this.$emit('logged', res);
                 }).catch(e => {
+                    this.loading = false;
                     this.errors = e.response.data.errors;
                 })
             },

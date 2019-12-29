@@ -19,6 +19,9 @@ export default {
                             reject();
                             dialog.$destroy();
                             dialog.$el.remove();
+                        },
+                        logged(){
+                            window.location.reload();
                         }
                     },
                     mounted(){
@@ -35,7 +38,7 @@ export default {
                                 dialog,
                             },
                             on: {
-                                logged: this.closeHandler,
+                                logged: this.logged,
                                 close: this.close,
                             }
                         });

@@ -12,16 +12,19 @@
                         </div>
                     </div>
                 </v-card-title>
-                <v-card-text>
+                <v-card-text v-if="!registered">
                     <v-text-field :error-messages="errors['name']" :error="errors['name'] && errors['name'].length > 0" v-model="user.name" :label="$t('Imię i nazwisko')" required></v-text-field>
                     <v-text-field :error-messages="errors['email']" :error="errors['email'] && errors['email'].length > 0" v-model="user.email" :label="$t('Adres email')" required></v-text-field>
 
                     <v-text-field :error-messages="errors['password']" :error="errors['password'] && errors['password'].length > 0" v-model="user.password" type="password" :label="$t('Hasło')" required></v-text-field>
                     <v-text-field :error-messages="errors['password_confirmation']" :error="errors['password_confirmation'] && errors['password_confirmation'].length > 0" v-model="user.password_confirmation" type="password" :label="$t('Potwierdź hasło')" required></v-text-field>
                 </v-card-text>
-                <v-card-actions>
+                <v-card-text v-else>
+                    <p>Zweryfikuj swój adres email klikając w link wysłany w wiadomości email na konto: {{registered.email}}</p>
+                </v-card-text>
+                <v-card-actions v-if="!registered">
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" raised @click="register()">Zarejestruj się</v-btn>
+                    <v-btn color="primary" :loading="loading" raised @click="register()">Zarejestruj się</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -37,16 +40,21 @@
                 dialog: true,
                 user: {},
                 errors:[],
+                registered:null,
+                loading: false,
             }
         },
         mounted() {
         },
         methods:{
             register(){
+                this.loading = true;
                 register(this.user).then(res => {
-                    this.$emit('logged', res);
+                    this.registered = res;
+                    this.loading = false;
                 }).catch(e => {
                     this.errors = e.response.data.errors;
+                    this.loading = false;
                 })
             },
             close(){
