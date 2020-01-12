@@ -13,7 +13,7 @@
                     </div>
                 </v-card-title>
                 <v-card-text>
-                        <v-text-field :error-messages="errors['email']" :error="errors['email'] && errors['email'].length > 0" v-model="user.email" :label="$t('Adres email')" required></v-text-field>
+                        <v-text-field :error-messages="loginErrors" :error="loginErrors.length > 0" v-model="user.email" :label="$t('Adres email')" required></v-text-field>
                         <v-text-field :error-messages="errors['password']" :error="errors['password'] && errors['password'].length > 0" v-model="user.password" type="password" :label="$t('Hasło')" required></v-text-field>
                 </v-card-text>
                 <v-card-actions>
@@ -37,6 +37,13 @@
                 errors:[],
             }
         },
+        computed:{
+          loginErrors(){
+              if(this.errors['login']) return this.errors['login'];
+              if(this.errors['email']) return this.errors['email'];
+              return [];
+          }
+        },
         mounted() {
             console.log('LOGIN');
         },
@@ -48,6 +55,7 @@
                     this.$emit('logged', res);
                 }).catch(e => {
                     this.loading = false;
+                    console.log(e.response);
                     this.errors = e.response.data.errors;
                 })
             },

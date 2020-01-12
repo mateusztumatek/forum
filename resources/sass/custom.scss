@@ -13,9 +13,20 @@
     background-color: white;
     border-radius: 8px;
     transition: all 300ms;
+    position: relative;
+    cursor: pointer;
     &:hover{
+        a, span, i, p{
+            color: white !important;
+        }
         box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 5px 8px 0 rgba(0,0,0,.14),0 1px 14px 0 rgba(0,0,0,.12)!important;
+        background-color: $primary-color;
     }
+}
+.actions{
+    right: 10px;
+    top: 10px;
+    position: absolute;
 }
 .pagination{
     padding-left: 0px !important;
@@ -32,4 +43,75 @@
 }
 label{
     margin-bottom: 0px;
+}
+.v-input__append-outer{
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+.give-me-space{
+    padding: 40px 0px;
+}
+.trumbowyg-button-pane{
+    z-index: 1 !important;
+}
+.carousel-inner > .carousel-item {
+    position: relative;
+    .content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    transition-duration: 450ms !important;
+}
+.v-content{
+    padding-top: 0px !important;
+}
+.background-white{
+    background-color: white !important;
+}
+.container{
+    max-width: 85%;
+    width: 85%;
+}
+.categories-header{
+    border-bottom: 1px solid #d6d6d2;
+}
+.active-toolbar-link{
+    &:before{
+        opacity: .09 !important;
+    }
+}
+.my-link{
+    color: #222222;
+    transition: all 200ms;
+    h2,h3,p,span{
+        color: #222222;
+        transition: all 200ms;
+    }
+    &:hover{
+        color: $primary-color;
+        h2,h3,p,span{
+            color: $primary-color;
+        }
+    }
+}
+.sticky-top{
+    z-index: 20 !important;
+}
+.must-pay{
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h3{
+        font-size: 1.5rem;
+        font-weight: bold;
+        opacity: 0.7;
+    }
 }

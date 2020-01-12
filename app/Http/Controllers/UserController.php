@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Mail\UpdateCodeMail;
 use App\Post;
+use App\Sett;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Http\Request;
@@ -26,21 +28,28 @@ class UserController extends Controller
      */
     public function show(Request $request, $id, $tab = null)
     {
+
         $user = User::find($id);
-        if(!$user->id){
+        if(!$user){
             return redirect(url('/'))->withErrors([trans('my.Nie ma takiego użytkownika')]);
         }
-        if($tab != 'comments' || $tab != ''){
+        if($pp = $user->setts->where('type', 'profil_private')->first()){
+            if($pp->value == 1 && $user->id != Auth::id()) return back()->withErrors('Konto tego użytkownika jest prywatne');
+        };
+        if($tab != 'comments' && $tab != null){
             if(Auth::id() != $user->id) throw new UnauthorizedException();
         }
         $data = [];
         if(!$tab || $tab == ''){
-            $posts = Post::where('user_id', $user->id)->with('user')->paginate(10);
+            $posts = Post::orderBy('created_at', 'desc')->where('user_id', $user->id)->with('user')->filter()->paginate(10);
             $data['posts'] = $posts;
         }
         if($tab == 'account'){
             $user->first_login = false;
             $user->update();
+        }
+        if($tab == 'settings'){
+            $data['settings'] = $user->setts;
         }
 
         return view('auth.show')->with(array_merge(['user' => $user, 'tab' => $tab], $data));
@@ -57,6 +66,28 @@ class UserController extends Controller
                 'name' => 'required|min:4',
             ]);
             $user->update($request->all());
+        }
+        if($request->tab == 'settings'){
+            $request->validate([
+                'settings' => 'required|array'
+            ]);
+            $user->setts()->delete();
+            foreach ($request->settings as $key => $setting){
+                if($setting){
+                    $user->setts()->create([
+                        'model' => 'user',
+                        'foreign_id' => $user->id,
+                        'type' => $key,
+                        'value' => $setting
+                    ]);
+                }
+            }
+        }
+        if($request->tab == 'desc'){
+            $request->validate([
+                'desc' => 'required'
+            ]);
+            $user->update(['desc' => $request->desc]);
         }
         if($request->tab == 'privacy'){
             if($request->new_email){
@@ -85,7 +116,7 @@ class UserController extends Controller
             }
             $data = array();
             ($request->new_email)? $data['email'] = $request->new_email : null;
-            ($request->new_password)? $data['password'] = $request->new_password : null;
+            ($request->new_password)? $data['password'] = Hash::make($request->new_password): null;
             $user->update_code = \Illuminate\Support\Str::random(5);
             Mail::to((array_key_exists('email', $data)? $data['email'] : $user->email))->send(new UpdateCodeMail($user));
             $user->update();

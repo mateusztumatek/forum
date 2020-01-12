@@ -1,0 +1,1 @@
+<account-desc :user="{{json_encode($user)}}"></account-desc>

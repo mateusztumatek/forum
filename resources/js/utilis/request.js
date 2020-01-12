@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {getToken} from "../../../../../app/front/src/utilis/auth";
 
 // Create axios instance
 const service = axios.create({

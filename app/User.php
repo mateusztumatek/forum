@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,10 +44,13 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function settings(){
-        return $this->hasMany('App\Setting', 'foreign_id')->where('model', 'user');
+    public function setts(){
+        return $this->hasMany('App\Sett', 'foreign_id', 'id')->where('model', 'user');
     }
     public function posts(){
-        return $this->hasMany('App\Post');
+        return $this->hasMany('App\Pos');
+    }
+    public function accesses(){
+        return $this->hasMany('App\Shop\UserAccesses')->where('expired_date', '>', Carbon::now());
     }
 }

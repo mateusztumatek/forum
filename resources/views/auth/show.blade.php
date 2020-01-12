@@ -20,7 +20,7 @@
                         </v-avatar>
                     </v-card-title>
                     <v-card-text style="padding-top: 15px">
-                        fwa wa aw awpwa gawpigh wa fwa wa aw awpwa gawpigh wa fwa wa aw awpwa gawpigh wafwa wa aw awpwa gawpigh wa fwa wa aw awpwa gawpigh wa
+                       {!! $user->desc !!}
                     </v-card-text>
                 </div>
             </div>
@@ -29,8 +29,8 @@
         <div style="padding-top: 100px">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4" style="height: fit-content; position: sticky; top: 60px">
-                        <v-navigation-drawer flat permanent>
+                    <div class="col-md-3" style="height: fit-content; position: sticky; top: 60px">
+                        <v-navigation-drawer width="100%" flat permanent>
                             <v-list
                                 flat
                                 dense
@@ -70,6 +70,14 @@
                                         <v-list-item-title>Prywatność</v-list-item-title>
                                     </v-list-item-content>
                                 </v-list-item>
+                                    <v-list-item link href="{{route('account.index', ['id' => $user->id, 'tab' => 'settings'])}}">
+                                        <v-list-item-icon>
+                                            <v-icon>mdi-settings-outline</v-icon>
+                                        </v-list-item-icon>
+                                        <v-list-item-content>
+                                            <v-list-item-title>Ustawienia</v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
                                 <v-list-item link>
                                     <v-list-item-icon>
                                         <v-icon>mdi-cart-outline</v-icon>
@@ -78,7 +86,7 @@
                                         <v-list-item-title>Twoje zakupy</v-list-item-title>
                                     </v-list-item-content>
                                 </v-list-item>
-                                <v-list-item link>
+                                <v-list-item link href="{{route('account.index', ['id' => $user->id, 'tab' => 'desc'])}}">
                                     <v-list-item-icon>
                                         <v-icon>mdi-clipboard-text-multiple-outline</v-icon>
                                     </v-list-item-icon>
@@ -99,7 +107,7 @@
                             </v-list>
                         </v-navigation-drawer>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         @if(!$tab || $tab == '')
                                 @include('auth.partials.posts')
                             @elseif($tab == 'comments')
@@ -107,7 +115,11 @@
                             @elseif($tab == 'account')
                                 @include('auth.partials.account')
                             @elseif($tab == 'privacy')
-                                <account-privacy :user="{{$user->load('settings')}}">
+                                <account-privacy :user="{{$user->load('setts')}}">
+                            @elseif($tab == 'settings')
+                                @include('auth.partials.settings')
+                            @elseif($tab == 'desc')
+                                @include('auth.partials.desc')
                         @endif
                     </div>
                 </div>

@@ -17,9 +17,6 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('parent_id')->nullable();
-            $table->boolean('is_paid')->default(false);
-            $table->float('price')->nullable();
-            $table->float('price_sellout')->nullable();
             $table->string('image')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();

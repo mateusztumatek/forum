@@ -29,12 +29,16 @@
                 </main>
             </div>
         </v-content>
+        @include('layouts.footer')
         @include('layouts.notifications')
     </v-app>
 </body>
 <script>
+    var csrf_token = '{{csrf_token()}}';
     var base_url = '{{url('/')}}';
-    var user = JSON.parse('{!! json_encode(\Illuminate\Support\Facades\Auth::user()) !!}');
+    @if(Auth::check())
+    var user = {!! json_encode(\Illuminate\Support\Facades\Auth::user()->toArray(), JSON_HEX_TAG) !!};
+    @else var user = null; @endif
     @if(isset($login) && $login)
         var login = true;
         @else

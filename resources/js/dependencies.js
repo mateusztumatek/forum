@@ -1,2 +1,11 @@
 Vue.component('notifications', require('./components/notifications.vue').default);
 Vue.component('account-privacy', require('./views/auth/account/privacy').default);
+Vue.component('account-desc', require('./views/auth/account/desc').default);
+Vue.component('desc-component', require('./components/desc-component').default);
+Vue.component('tags-component', require('./components/tags-input').default);
+Vue.component('categories-component', require('./components/categories-input').default);
+Vue.component('files-component', require('./components/files-input').default);
+Vue.component('post-comments', require('./views/comments/post-comments').default);
+Vue.component('comment-component', require('./views/comments/comment-component').default);
+Vue.component('rates-component', require('./views/rates/rate-component').default);
+Vue.component('payment-component', require('./views/payments/payment-component').default);

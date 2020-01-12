@@ -13,7 +13,7 @@
         ></v-img>
     </template>
     <div class="container v-toolbar__content">
-        <v-app-bar-nav-icon small></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon class="ml-0" small></v-app-bar-nav-icon>
 
         <v-toolbar-title small>Title</v-toolbar-title>
 
@@ -69,3 +69,5 @@
         </v-menu>
     </div>
 </v-app-bar>
+@include('layouts.carousel')
+@include('layouts.categories')

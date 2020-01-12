@@ -12,6 +12,8 @@ import vuetify from './plugins/vuetify';
 import prototypes from './plugins/auth';
 import { i18n } from "./plugins/i18n";
 require('./dependencies');
+
+
 Vue.use(prototypes);
 /**
  * The following block of code may be used to automatically register your
@@ -42,16 +44,24 @@ const app = new Vue({
             user:null,
             birth_date: null,
             base_url:'',
+            csrf_token: null,
         }
     },
     mounted() {
+        this.csrf_token = csrf_token;
         this.base_url = base_url;
         this.user = user;
         if(login) this.login();
         if(register) this.register();
     },
     methods:{
-        updateInput(field, data){
+        changeLocation(url){
+            window.location.href = url;
+        },
+        getSrc(path){
+          return this.base_url+'/storage/'+path;
+        },
+        udateInput(field, data){
             console.log($('input[name="'+field+'"]'));
             $('input[name="'+field+'"]').val(data);
         },

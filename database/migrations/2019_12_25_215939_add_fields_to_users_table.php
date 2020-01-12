@@ -18,7 +18,6 @@ class AddFieldsToUsersTable extends Migration
             $table->string('login')->nullable();
             $table->string('city')->nullable();
             $table->longText('desc')->nullable();
-            $table->string('avatar')->nullable();
             $table->string('street')->nullable();
             $table->string('postal')->nullable();
             $table->dateTime('banned_to')->default(null)->nullable();

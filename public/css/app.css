@@ -11401,6 +11401,8 @@ a {
   border-radius: 8px;
   -webkit-transition: all 300ms;
   transition: all 300ms;
+  position: relative;
+  cursor: pointer;
 }
 
 .post_small a {
@@ -11409,6 +11411,20 @@ a {
 
 .post_small:hover {
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 1px 14px 0 rgba(0, 0, 0, 0.12) !important;
+  background-color: #08FF97;
+}
+
+.post_small:hover a,
+.post_small:hover span,
+.post_small:hover i,
+.post_small:hover p {
+  color: white !important;
+}
+
+.actions {
+  right: 10px;
+  top: 10px;
+  position: absolute;
 }
 
 .pagination {
@@ -11427,5 +11443,108 @@ a {
 
 label {
   margin-bottom: 0px;
+}
+
+.v-input__append-outer {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.give-me-space {
+  padding: 40px 0px;
+}
+
+.trumbowyg-button-pane {
+  z-index: 1 !important;
+}
+
+.carousel-inner > .carousel-item {
+  position: relative;
+  -webkit-transition-duration: 450ms !important;
+          transition-duration: 450ms !important;
+}
+
+.carousel-inner > .carousel-item .content {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.v-content {
+  padding-top: 0px !important;
+}
+
+.background-white {
+  background-color: white !important;
+}
+
+.container {
+  max-width: 85%;
+  width: 85%;
+}
+
+.categories-header {
+  border-bottom: 1px solid #d6d6d2;
+}
+
+.active-toolbar-link:before {
+  opacity: 0.09 !important;
+}
+
+.my-link {
+  color: #222222;
+  -webkit-transition: all 200ms;
+  transition: all 200ms;
+}
+
+.my-link h2,
+.my-link h3,
+.my-link p,
+.my-link span {
+  color: #222222;
+  -webkit-transition: all 200ms;
+  transition: all 200ms;
+}
+
+.my-link:hover {
+  color: #08FF97;
+}
+
+.my-link:hover h2,
+.my-link:hover h3,
+.my-link:hover p,
+.my-link:hover span {
+  color: #08FF97;
+}
+
+.sticky-top {
+  z-index: 20 !important;
+}
+
+.must-pay {
+  min-height: 80px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.must-pay h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0.7;
 }
 

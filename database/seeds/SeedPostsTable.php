@@ -13,7 +13,7 @@ class SeedPostsTable extends Seeder
     {
         $faker = \Faker\Factory::create();
         for($i=0; $i<50; $i++){
-            \App\Post::create([
+            \App\Pos::create([
                 'user_id' => \App\User::inRandomOrder()->first()->id,
                 'title' => $faker->title,
                 'subtitle' => $faker->realText(150),
