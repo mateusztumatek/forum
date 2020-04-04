@@ -17,7 +17,7 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'login', 'city', 'desc', 'avatar', 'street', 'postal', 'banned_to', 'first_login', 'birth_date', 'update_code',
+        'name', 'email', 'password', 'login', 'city', 'desc', 'avatar', 'street', 'postal', 'banned_to', 'first_login', 'birth_date', 'update_code', 'is_facebook', 'is_google', 'last_password_change', 'email_verified_at'
     ];
     protected $dates = ['birth_date'];
     public function getAvatarAttribute($avatar){

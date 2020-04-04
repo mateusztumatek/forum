@@ -13,10 +13,24 @@
                             @endif
                         </p>
                         <v-avatar size="200" class="card-avatar">
-                            <img  elevation="3"
-                                src="{{url('/storage/'.$user->avatar)}}"
+                            <v-img  elevation="3"
+                                class="avatar"
+                                    @if($user->id == \Illuminate\Support\Facades\Auth::id())
+
+                                     :src="$root.getSrc($user.user.avatar)"
+                                     v-if="$user.user"
+                                    @else
+                                     src="{{url('/storage/'+$user->avatar)}}"
+                                    @endif
                                 alt="{{$user->name}}"
                             >
+                                @if($user->id == \Illuminate\Support\Facades\Auth::id())
+                                <div class="content h-100 w-100 d-flex justify-content-center align-items-center">
+                                    <input @change="updateAvatar($event)" type="file" class="d-none" ref="image">
+                                    <v-btn color="primary" @click="$refs.image.click()">Zmień</v-btn>
+                                </div>
+                                    @endif
+                            </v-img>
                         </v-avatar>
                     </v-card-title>
                     <v-card-text style="padding-top: 15px">

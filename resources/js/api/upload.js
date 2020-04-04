@@ -6,3 +6,10 @@ export function upload(data, path) {
         data: data
     })
 }
+export function getUploads(data) {
+    return Request({
+        url: base_url+'/admin/media/files',
+        method: 'post',
+        data: data
+    })
+}

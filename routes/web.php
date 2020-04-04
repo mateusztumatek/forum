@@ -16,6 +16,11 @@ Route::get('/', 'HomeController@index')->name('home');
 
 /* KONTO */
 Auth::routes(['verify' => true]);
+Route::get('/auth/{type}', 'Auth\LoginController@redirectSocial');
+
+Route::post('/auth/{type}', 'Auth\LoginController@callback');
+Route::get('/auth/{type}/callback', 'Auth\LoginController@callback');
+
 Route::post('verification_email', function (){
     if(\Illuminate\Support\Facades\Auth::check()){
         \Illuminate\Support\Facades\Auth::user()->sendEmailVerificationNotification();
@@ -53,3 +58,4 @@ Route::group(['prefix' => 'admin'], function () {
 Route::resource('categories', 'CategoryController');
 Route::get('/kategoria/{slug}/{slug_2?}', 'CategoryController@show')->name('categories.show');
 Route::post('upload/{path}', 'UploadController@upload');
+Route::get('/{slug}', 'PageController@show');

@@ -5,7 +5,7 @@
             <div class="col-md-9">
                 <v-card v-cloak>
                     <div class="actions d-flex align-items-center">
-                        <rates-component table="posts" id="{{$post->id}}" :data="JSON.parse('{{$post->rates}}')" :user="user"></rates-component>
+                        <rates-component table="posts" id="{{$post->id}}" :data="JSON.parse('{{$post->rates}}')" :user="$user.user"></rates-component>
                         @if($post->user_id == Auth::id())
                             <v-menu bottom left>
                                 <template v-slot:activator="{ on }">
@@ -57,13 +57,13 @@
                             <div class="must-pay">
                                 <h3 class="text-muted">Ten post jest płatny aby zobaczyć jego treść musisz wykupić dostęp do tej części forum</h3>
                             </div>
-                            <payment-component :data=""></payment-component>
+                            <payment-component></payment-component>
                         @endif
                     </v-card-text>
 
                 </v-card>
                 @if($post->hasAccess(\Illuminate\Support\Facades\Auth::user()))
-                <post-comments post_id="{{$post->id}}" :user="user"></post-comments>
+                <post-comments post_id="{{$post->id}}" :user="$user.user"></post-comments>
                 @endif
             </div>
         </div>

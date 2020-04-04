@@ -1,5 +1,6 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,700,800&display=swap");
 
 // Variables
 @import 'variables';
@@ -7,9 +8,7 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import "../../node_modules/vuetify/dist/vuetify.min.css";
-[v-cloak]{
-  display: none;
-}
+
 a{
     text-decoration: none !important;
 }
@@ -24,3 +23,4 @@ a{
     opacity: 0;
 }
 @import "custom";
+@import "mobile";

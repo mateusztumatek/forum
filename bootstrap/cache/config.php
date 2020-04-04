@@ -78,6 +78,7 @@
       'URL' => 'Illuminate\\Support\\Facades\\URL',
       'Validator' => 'Illuminate\\Support\\Facades\\Validator',
       'View' => 'Illuminate\\Support\\Facades\\View',
+      'Crawler' => 'Jaybizzle\\LaravelCrawlerDetect\\Facades\\LaravelCrawlerDetect',
     ),
   ),
   'auth' => 
@@ -447,8 +448,8 @@
       'name' => 'Example',
     ),
     'encryption' => 'tls',
-    'username' => 'mateusztumatek@gmail.com',
-    'password' => 'rambojestempro',
+    'username' => 'allbag.pl@gmail.com',
+    'password' => 'Allbagwqe1',
     'sendmail' => '/usr/sbin/sendmail -bs',
     'markdown' => 
     array (
@@ -529,6 +530,18 @@
     'sparkpost' => 
     array (
       'secret' => NULL,
+    ),
+    'facebook' => 
+    array (
+      'client_id' => '637660107012194',
+      'client_secret' => 'fa6825d756708bb6bc7c95d089c41487',
+      'redirect' => 'http://localhost:8000/auth/facebook/callback',
+    ),
+    'google' => 
+    array (
+      'client_id' => '879588771298-9i03mvnik7mod8siuhlmorqmiq2d5u8b.apps.googleusercontent.com',
+      'client_secret' => '-vF5NRvEhs12SWkhWku3j_8v',
+      'redirect' => 'http://localhost:8000/auth/google/callback',
     ),
   ),
   'session' => 
@@ -648,6 +661,7 @@
     ),
     'additional_js' => 
     array (
+      0 => 'js/admin.js',
     ),
     'googlemaps' => 
     array (

@@ -26,7 +26,9 @@ class CategoryController extends Controller
                     $q->orWhere('category_id', $sub->id);
                 }
             }
-        })->with('rates', 'tags')->paginate(25);
+        })->with('rates', 'tags')->with(['latestComments' => function($q){
+            $q->with('user');
+        }])->paginate(25);
         return view('categories.single', compact('category', 'posts'));
     }
 }

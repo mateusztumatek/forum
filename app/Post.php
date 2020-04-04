@@ -42,6 +42,12 @@ class Post extends Model
             return $q;
         }
     }
+    public function comments(){
+        return $this->hasMany('App\Comment', 'foreign_key', 'id')->where('type', 'posts');
+    }
+    public function latestComments(){
+        return $this->comments()->take(5);
+    }
     public function tags(){
         return $this->belongsToMany('App\Tag', 'posts_tags');
     }
@@ -55,6 +61,7 @@ class Post extends Model
         if(!$this->is_paid) return true;
         $payment_categories = $this->payment_categories;
         if(count($payment_categories) > 0){
+            if(!$user) return false;
             $accesses = $user->accesses()->where('type', 'category')->get();
             foreach ($payment_categories as $payment_category){
                 $temp = $accesses->where('foreign_key', $payment_category->id)->first();

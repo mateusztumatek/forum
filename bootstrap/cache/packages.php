@@ -36,6 +36,17 @@
       'Image' => 'Intervention\\Image\\Facades\\Image',
     ),
   ),
+  'jaybizzle/laravel-crawler-detect' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Jaybizzle\\LaravelCrawlerDetect\\LaravelCrawlerDetectServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Crawler' => 'Jaybizzle\\LaravelCrawlerDetect\\Facades\\LaravelCrawlerDetect',
+    ),
+  ),
   'larapack/doctrine-support' => 
   array (
     'providers' => 
@@ -48,6 +59,17 @@
     'providers' => 
     array (
       0 => 'Larapack\\VoyagerHooks\\VoyagerHooksServiceProvider',
+    ),
+  ),
+  'laravel/socialite' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Socialite' => 'Laravel\\Socialite\\Facades\\Socialite',
     ),
   ),
   'laravel/tinker' => 

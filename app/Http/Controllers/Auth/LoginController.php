@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
+
 class LoginController extends Controller
 {
     /*
@@ -69,7 +74,33 @@ class LoginController extends Controller
 
         return $field;
     }
+    public function redirectSocial(Request $request, $type){
+        return Socialite::driver($type)->redirect();
+    }
+    public function callback(Request $request, $type){
+        $user = Socialite::driver($type)->stateless()->user();
+        try{
+            if($existed = User::where('email', $user->getEmail())->where('is_'.$type, 1)->first()){
+                $new_user = $existed;
+            }else{
+                $new_user = User::create([
+                    'login' => $user->getEmail(),
+                    'email' => $user->getEmail(),
+                    'name' => $user->getName(),
+                    'is_facebook' => ($type == 'facebook')? true : false,
+                    'is_google' => ($type == 'google')? true : false,
+                    'password' => Hash::make('password'),
+                    'avatar' => $user->getAvatar(),
+                    'email_verified_at' => Carbon::now()->subHour()
+                ]);
+            }
 
+        }catch(\Exception $e){
+            return redirect()->to('/login')->withErrors('Błąd podczas tworzenia użytkownika');
+        }
+        Auth::login($new_user);
+        return redirect()->to('/');
+    }
     /**
      * Create a new controller instance.
      *

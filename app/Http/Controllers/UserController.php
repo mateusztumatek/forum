@@ -83,6 +83,9 @@ class UserController extends Controller
                 }
             }
         }
+        if($request->avatar){
+            $user->update(['avatar' => $request->avatar]);
+        }
         if($request->tab == 'desc'){
             $request->validate([
                 'desc' => 'required'

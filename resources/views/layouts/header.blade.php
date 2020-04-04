@@ -1,9 +1,6 @@
 <v-app-bar
     v-cloak
     app
-    color="#fcb69f"
-    dark
-    src="https://picsum.photos/1920/1080?random"
     scroll-target="#scrolling-techniques"
 >
     <template v-slot:img="{ props }">
@@ -13,39 +10,37 @@
         ></v-img>
     </template>
     <div class="container v-toolbar__content">
-        <v-app-bar-nav-icon class="ml-0" small></v-app-bar-nav-icon>
-
-        <v-toolbar-title small>Title</v-toolbar-title>
-
+        <v-toolbar-title small>
+            <img style="max-width: 100px" src="{{url('/storage/default/logo.png')}}">
+        </v-toolbar-title>
         <v-spacer></v-spacer>
-
-        <v-btn icon>
+        <v-btn @click="toggleMenu()" class="mx-2" color="transparent" depressed><v-img max-width="20px" class="mr-2" :src="$root.getSrc('default/menu.svg')"></v-img>MENU</v-btn>
+        <v-btn class="mx-2" icon>
             <v-icon>mdi-magnify</v-icon>
         </v-btn>
-
-        <v-btn icon>
-            <v-icon>mdi-heart</v-icon>
-        </v-btn>
-
         <v-menu
-            bottom
-            origin="center center"
-            transition="scale-transition"
+                offset-y
+                bottom
+                transition="scale-transition"
         >
             <template v-slot:activator="{ on }">
                 <v-btn
-                    icon
-                    v-on="on"
+                        class="mx-2 mr-0"
+                        icon
+                        v-on="on"
                 >
-                    <v-icon>mdi-account</v-icon>
+                    <v-avatar size="30" v-if="$user.user">
+                        <v-img :src="$root.getSrc($user.user.avatar)"></v-img>
+                    </v-avatar>
+                    <v-icon v-else>mdi-account</v-icon>
                 </v-btn>
             </template>
             @if(!\Illuminate\Support\Facades\Auth::check())
                 <v-list>
-                    <v-list-item dense @click="login()">
+                    <v-list-item dense @click="$user.showLogin()">
                         <v-list-item-title>{{__('my.Zaloguj się')}}</v-list-item-title>
                     </v-list-item>
-                    <v-list-item dense @click="register()">
+                    <v-list-item dense @click="$user.showRegister()">
                         <v-list-item-title>{{__('my.Zarejestruj się')}}</v-list-item-title>
                     </v-list-item>
                 </v-list>

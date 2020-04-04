@@ -9,3 +9,4 @@ Vue.component('post-comments', require('./views/comments/post-comments').default
 Vue.component('comment-component', require('./views/comments/comment-component').default);
 Vue.component('rates-component', require('./views/rates/rate-component').default);
 Vue.component('payment-component', require('./views/payments/payment-component').default);
+Vue.component('slider-component', require('./views/sliders/post-slider').default);

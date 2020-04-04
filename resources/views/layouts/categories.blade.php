@@ -7,14 +7,14 @@
 <div class="w-100 background-white categories-header">
     <div class="container">
         <div class="row">
-            <div class="col-auto py-0 d-flex align-items-center justify-content-center">
+            <div v-cloak class="col-auto py-0 d-flex align-items-center justify-content-center">
                 <p class="font-weight-bold mb-0">Wybierz kategorię</p>
             </div>
             <div class="col-auto py-0">
                 <v-toolbar flat>
                     <v-toolbar-items>
                         @foreach($categories as $category)
-                            <v-btn @if(isset($c)) @if($c->id == $category->id || $c->id == $category->parent_id || $c->parent_id == $category->id) class="active-toolbar-link"  @endif @endif text href="{{$category->url}}">
+                            <v-btn v-cloak @if(isset($c)) @if($c->id == $category->id || $c->id == $category->parent_id || $c->parent_id == $category->id) class="active-toolbar-link"  @endif @endif text href="{{$category->url}}">
                                 <v-img max-width="30" src="{{url('/storage/'.$category->image)}}" class="mr-1"></v-img>
                                 {{$category->name}}
                             </v-btn>

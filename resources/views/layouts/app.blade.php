@@ -8,29 +8,39 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <style>
+        @if(config('app.env') == 'production' || 1 == 1)
+            [v-cloak]{
+                opacity: 0;
+                transition: all 200ms;
+            }
+            @endif
+    </style>
     <!-- Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('css')
 </head>
 <body>
-
-    <v-app id="app">
-        @include('layouts.header')
-        <v-content>
-            <div>
-                <main>
-                    @yield('content')
-                </main>
-            </div>
-        </v-content>
-        @include('layouts.footer')
-        @include('layouts.notifications')
+    <v-app id="app" :class="{'blured-application': $user.is_login}">
+        <div v-cloak>
+            @include('layouts.header')
+            <v-content>
+                <div>
+                    <main>
+                        @yield('content')
+                    </main>
+                </div>
+            </v-content>
+            <login-component></login-component>
+            <register-component></register-component>
+            @include('layouts.menu')
+            @include('layouts.footer')
+            @include('layouts.notifications')
+        </div>
     </v-app>
 </body>
 <script>
@@ -66,6 +76,6 @@
         })
          @endforeach
 </script>
-<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 </html>

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    <div class="col-md-12">
+
+    </div>
     <div class="give-me-space">
 
         <form v-cloak @if(isset($post)) action="{{route('posts.update', ['id' => $post->id])}}" @else action="{{route('posts.store')}}" @endif method="post" >
